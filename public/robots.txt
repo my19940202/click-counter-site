@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.screensaver.top
+
+# Sitemaps
+Sitemap: https://www.screensaver.top/sitemap.xml

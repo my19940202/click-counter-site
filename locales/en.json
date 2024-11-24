@@ -1,0 +1,40 @@
+{
+    "Hero": {
+        "h1": "screensaver",
+        "h2": "screensaver, a web browsing assistant to enhance your search efficiency."
+    },
+    "Feature": {
+        "h2": "Our Feature",
+        "h3": "Features of screensaver",
+        "description1": "Awesome landing page template.",
+        "description2": "Based on Next.JS, DaisyUI, TailwinCSS and other powerful libary.",
+        "description3": "Completely open source and completely free."
+    },
+    "Pricing": {
+        "h2": "Our Pricing",
+        "h3": "Choose Your Plan",
+        "description": "Select the plan that best fits your needs.",
+        "doYouLike": "你喜欢这个落地页模板吗？",
+        "follow": "关注我的推特。"
+    },
+    "Testimonial": {
+        "h2": "Testimonials",
+        "h3": "Wall of Love",
+        "description1": "If you use this landing page template and recommend it on your Twitter,",
+        "description2": "please let me know",
+        "description3": ",I will display your tweet and recommendation here."
+    },
+    "Faq": {
+        "h2": "FAQ",
+        "h3": "Frequently Asked Questions",
+        "description": "Here are some of the most frequently asked questions."
+    },
+    "CTA": {
+        "h2": "Add To Chrome",
+        "h3": "Come and try screensaver in the Chrome Web Store!"
+    },
+    "CTAButton": {
+        "btn1": "Add To Chrome",
+        "btn2": "View Docs"
+    }
+}

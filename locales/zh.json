@@ -1,0 +1,39 @@
+{
+    "Hero": {
+        "h1": "screensaver",
+        "h2": "网页浏览助手，让你更轻松快速的找到信息"
+    },
+    "Feature": {
+        "h2": "screensaver 产品特点",
+        "description1": "Awesome landing page template.",
+        "description2": "Based on Next.JS, DaisyUI, TailwinCSS and other powerful libary.",
+        "description3": "Completely open source and completely free."
+    },
+    "Pricing": {
+        "h2": "Our Pricing",
+        "h3": "Choose Your Plan",
+        "description": "Select the plan that best fits your needs.",
+        "doYouLike": "你喜欢这个落地页模板吗？",
+        "follow": "关注我的推特。"
+    },
+    "Testimonial": {
+        "h2": "Testimonials",
+        "h3": "Wall of Love",
+        "description1": "If you use this landing page template and recommend it on your Twitter,",
+        "description2": "please let me know",
+        "description3": ",I will display your tweet and recommendation here."
+    },
+    "Faq": {
+        "h2": "常见问题",
+        "h3": "常见问题",
+        "description": "以下是一些常见使用问题。"
+    },
+    "CTA": {
+        "h2": "添加到浏览器",
+        "h3": "快来Chrome应用商店安装和体验screensaver吧！"
+    },  
+    "CTAButton": {
+        "btn1": "Add To Chrome",
+        "btn2": "View Docs"
+    }
+}
