@@ -1,5 +1,5 @@
 module.exports = {
-    siteUrl: 'https://www.screensaver.top',
+    siteUrl: 'https://www.clickcounter.online',
     generateRobotsTxt: true,
     sitemapSize: 7000,
 };

@@ -7,7 +7,6 @@ import { IoMailOpen } from "react-icons/io5";
 import { SiBuymeacoffee } from "react-icons/si";
 import ThemeToggle from "./themeToggle";
 import LangSwitch from "./langSwitch";
-
 import { usePathname } from "next/navigation";
 import { defaultLocale } from "@/lib/i18n";
 import { NavLinksList } from "@/lib/navLinksList";
@@ -33,9 +32,9 @@ export default function Navbar() {
         <header className="w-full z-50 bg-base-100 p-5 pb-0 md:mb-5 shadow-md">
             <div className="max-w-[1280px] flex justify-between items-center mx-auto">
                 <a
-                    aria-label="screensaver"
+                    aria-label="click counter online"
                     className="flex items-center w-1/2 md:w-1/5"
-                    title="screensaver"
+                    title="click counter online"
                     href={`/${langName}`}
                 >
                     <Image
@@ -43,18 +42,18 @@ export default function Navbar() {
                         height={200}
                         src={"/logo.png"}
                         className="transition-all hover:scale-110 w-6 md:w-10 h-6 md:h-10 cursor-pointer"
-                        alt="screensaver logo"
+                        alt="click counter online logo"
                     ></Image>
-                    <h1 className="ml-3 font-bold leading-5 cursor-pointer">screensaver</h1>
+                    <h1 className="ml-3 font-bold leading-5 cursor-pointer">click counter online</h1>
                 </a>
 
                 <div className="md:w-1/5 flex items-center justify-end gap-2">
                     <div>
-                        <a title={'screensaver on X'} href='https://x.com/xbb89783293' target='_blank'>
+                        <a title={'click counter online on X'} href='https://x.com/xbb89783293' target='_blank'>
                             <FaSquareTwitter size={30} />
                         </a>
                     </div>
-                    <a href="mailto:screensavertop@163.com" target="_blank" className="block">
+                    <a href="mailto:click counter onlinetop@163.com" target="_blank" className="block">
                         <IoMailOpen size={30} />
                     </a>
                     <a

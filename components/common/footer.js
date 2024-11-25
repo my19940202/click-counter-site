@@ -30,9 +30,9 @@ export default function Footer() {
             <div className="max-w-[1024px] mx-auto flex flex-col md:flex-row justify-between items-center md:items-end gap-2 text-sm">
                 <div className="flex flex-col items-center md:items-start">
                     <a
-                        aria-label="screensaver"
+                        aria-label="click counter online"
                         className="flex items-center mb-3"
-                        title="screensaver"
+                        title="click counter online"
                         href={`/${langName}`}
                     >
                         <Image
@@ -43,7 +43,7 @@ export default function Footer() {
                             alt="logo"
                         ></Image>
                         <div className="ml-3 font-bold leading-5">
-                            screensaver
+                            click counter online
                         </div>
                     </a>
                     <div className="flex flex-wrap justify-center gap-x-2 md:gap-x-5 gap-y-1">

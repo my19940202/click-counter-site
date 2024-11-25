@@ -1,6 +1,6 @@
 
 // https://www.nextjs.cn/docs/basic-features/data-fetching#getstaticpaths-static-generation
-
+// 这个页面可以作为blog页面 用来讲解click counter怎么使用
 import Hero from "@/components/home/hero";
 import List from "@/components/home/list";
 import Seo from "@/components/home/seo";
@@ -26,8 +26,6 @@ export async function getStaticPaths() {
 const Detail = ({ params }) => {
     return (
         <div className="max-w-[1280px] mx-auto">
-            <Hero params={params} />
-            <List lang={params.lang} />
             <Seo params={params} />
         </div>
     );

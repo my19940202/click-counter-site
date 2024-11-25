@@ -4,7 +4,7 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: 'https',
-                hostname: 'www.screensaver.top',
+                hostname: 'www.clickcounter.online',
             },
         ],
     },

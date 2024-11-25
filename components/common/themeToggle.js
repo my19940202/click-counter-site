@@ -1,10 +1,8 @@
-// components/ThemeToggle.js
-// import { useContext } from "react";
+
 // import ThemeContext from "@/context/ThemeContext";
 import { MdLightMode, MdDarkMode } from "react-icons/md";
 
 export default function ThemeToggle() {
-    // const { theme, toggleTheme } = useContext(ThemeContext);
     const handleThemeToggle = () => {
         const currentTheme = document.documentElement.getAttribute('data-theme');
         const newTheme = currentTheme === 'business' ? 'corporate' : 'business';

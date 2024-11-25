@@ -10,7 +10,6 @@ export default async function Home({ params }) {
     return (
         <div className="max-w-[1280px] mx-auto">
             <Hero params={params} />
-            <List lang={langName} />
             <Seo params={params} />
         </div>
     );
