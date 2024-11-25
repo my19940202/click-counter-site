@@ -9,13 +9,11 @@ import { PURE_COLOR_TEXT, ANAMATION_TEXT, TOOLS_TEXT } from "@/lib/color";
 export async function getStaticPaths() {
     // build时自动生成对应的页面提前 server渲染好 对SEO友好
     const typeList = [
-        ...PURE_COLOR_TEXT,
-        ...ANAMATION_TEXT,
-        ...TOOLS_TEXT
+        'about', 'how to use'
     ];
     const langs = ['zh', 'en'];
     let paths = langs.flatMap(lang =>
-        typeList.map(type => ({ params: { lang, type } }))
+        typeList.map(category => ({ params: { lang, category } }))
     );
     return {
         paths,
