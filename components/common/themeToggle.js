@@ -5,7 +5,7 @@ import { MdLightMode, MdDarkMode } from "react-icons/md";
 export default function ThemeToggle() {
     const handleThemeToggle = () => {
         const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'business' ? 'corporate' : 'business';
+        const newTheme = currentTheme === 'dracula' ? 'light' : 'dracula';
         document.documentElement.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
     }

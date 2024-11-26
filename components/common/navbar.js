@@ -29,12 +29,12 @@ export default function Navbar() {
     }, [pathname, langName]);
 
     return (
-        <header className="w-full z-50 bg-base-100 p-5 pb-0 md:mb-5 shadow-md">
+        <header className="w-full z-50 bg-base-100 p-5 py-2 md:mb-5 shadow-md">
             <div className="max-w-[1280px] flex justify-between items-center mx-auto">
                 <a
                     aria-label="click counter online"
                     className="flex items-center w-1/2 md:w-1/5"
-                    title="click counter online"
+                    title="click counter"
                     href={`/${langName}`}
                 >
                     <Image
@@ -44,27 +44,21 @@ export default function Navbar() {
                         className="transition-all hover:scale-110 w-6 md:w-10 h-6 md:h-10 cursor-pointer"
                         alt="click counter online logo"
                     ></Image>
-                    <h1 className="ml-3 font-bold leading-5 cursor-pointer">click counter online</h1>
+                    <h1 className="ml-3 font-bold leading-5 cursor-pointer">click counter</h1>
                 </a>
 
                 <div className="md:w-1/5 flex items-center justify-end gap-2">
-                    <div>
+                    {/* <div>
                         <a title={'click counter online on X'} href='https://x.com/xbb89783293' target='_blank'>
                             <FaSquareTwitter size={30} />
                         </a>
-                    </div>
-                    <a href="mailto:click counter onlinetop@163.com" target="_blank" className="block">
+                    </div> */}
+                    {/* <a href="mailto:click counter onlinetop@163.com" target="_blank" className="block">
                         <IoMailOpen size={30} />
-                    </a>
-                    <a
-                        title={'buy me a coffee'}
-                        target='_blank'
-                        href="https://www.buymeacoffee.com/xishengbow" className="mr-3">
-                        <SiBuymeacoffee size={30} />
-                    </a>
+                    </a> */}
                     <ThemeToggle />
                     <LangSwitch />
-                    <details className="flex md:hidden dropdown dropdown-end">
+                    {/* <details className="flex md:hidden dropdown dropdown-end">
                         <summary className="btn btn-ghost p-0">
                             <MdMenu size={18} />
                         </summary>
@@ -83,7 +77,7 @@ export default function Navbar() {
                                 );
                             })}
                         </ul>
-                    </details>
+                    </details> */}
                 </div>
             </div>
         </header>

@@ -10,7 +10,7 @@ export const ThemeProvider = ({ children }) => {
     useEffect(() => {
         // 检测系统主题偏好
         const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const initialTheme = prefersDarkMode ? 'business' : 'corporate';
+        const initialTheme = prefersDarkMode ? 'dracula' : 'light';
         const savedTheme = localStorage.getItem('theme') || initialTheme;
         if (theme !== savedTheme) {
             setTheme(savedTheme);
@@ -19,7 +19,7 @@ export const ThemeProvider = ({ children }) => {
     }, [theme]);
 
     const toggleTheme = () => {
-        const newTheme = theme === 'corporate' ? 'business' : 'corporate';
+        const newTheme = theme === 'light' ? 'dracula' : 'light';
         setTheme(newTheme);
         localStorage.setItem('theme', newTheme);
         document.documentElement.setAttribute('data-theme', newTheme);

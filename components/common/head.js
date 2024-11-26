@@ -21,7 +21,7 @@ export default function CustomHead() {
                 dangerouslySetInnerHTML={{
                     __html: `
           (function() {
-            const theme = localStorage.getItem('theme') || 'bussiness';
+            const theme = localStorage.getItem('theme') || 'dracula';
             document.documentElement.setAttribute('data-theme', theme);
           })();
         `,
