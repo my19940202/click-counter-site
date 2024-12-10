@@ -20,11 +20,11 @@ export default function CustomHead() {
             <script
                 dangerouslySetInnerHTML={{
                     __html: `
-          (function() {
-            const theme = localStorage.getItem('theme') || 'dracula';
-            document.documentElement.setAttribute('data-theme', theme);
-          })();
-        `,
+                        (function() {
+                            const theme = localStorage.getItem('theme') || 'dracula';
+                            document.documentElement.setAttribute('data-theme', theme);
+                        })();
+                    `
                 }}
             />
         </>
