@@ -23,9 +23,8 @@ export default function ThemeToggle() {
                 onChange={handleThemeToggle}
             />
 
-            <MdLightMode className="swap-off" size={30} />
-
-            <MdDarkMode className="swap-on" size={30} />
+            <MdLightMode className="swap-off" size={20} />
+            <MdDarkMode className="swap-on" size={20} />
         </label>
     );
 }

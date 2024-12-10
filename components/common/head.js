@@ -5,7 +5,7 @@ export default function CustomHead() {
         <>
             <script
                 async
-                src='https://www.googletagmanager.com/gtag/js?id=G-JC29MM097D'
+                src='https://www.googletagmanager.com/gtag/js?id=G-NHD32BFRGN'
             ></script>
             <script
                 dangerouslySetInnerHTML={{
@@ -13,7 +13,7 @@ export default function CustomHead() {
                     window.dataLayer = window.dataLayer || [];
                     function gtag(){dataLayer.push(arguments);}
                     gtag('js', new Date());
-                    gtag('config', 'G-JC29MM097D');
+                    gtag('config', 'G-NHD32BFRGN');
                     `,
                 }}
             />

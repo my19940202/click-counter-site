@@ -8,7 +8,7 @@ export default function Hero({ params }) {
         <>
             <section className="relative z-10 py-10">
                 <div className="flex flex-col items-center">
-                    Hero
+                    <h1>this is Hero</h1>
                 </div>
             </section>
         </>
