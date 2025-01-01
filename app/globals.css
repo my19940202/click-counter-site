@@ -32,11 +32,3 @@ body {
   }
 }
 
-.canvas-bg {
-    background: linear-gradient(
-        135deg,
-        #3C0E94 0%,
-        #210A58 50%,
-        #150631 100%
-    );
-}
