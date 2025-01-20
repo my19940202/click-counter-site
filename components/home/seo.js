@@ -4,11 +4,11 @@ export default function Seo({ params }) {
     const { type = 'star', lang = 'en' } = params;
 
     return (
-        <>
+        <div className="max-w-[900px] mx-auto">
             <section
                 className="relative z-10 pt-5 max-w-[1280px]"
             >
-                <div className="w-full max-w-3xl mb-8 p-8 rounded-lg bg-[#202020] text-[#f7f7f7]">
+                <div className="w-full mb-8 p-8 rounded-lg bg-[#202020] text-[#f7f7f7]">
                     <h3 className="text-2xl font-bold mb-6 ">
                         this is title
                     </h3>
@@ -16,7 +16,7 @@ export default function Seo({ params }) {
                         this is description
                     </p>
                 </div>
-                <div className="w-full max-w-3xl mb-8 p-8 rounded-lg bg-[#202020] text-[#f7f7f7]">
+                <div className="w-full mb-8 p-8 rounded-lg bg-[#202020] text-[#f7f7f7]">
                     <h3 className="text-2xl font-bold mb-6 ">
                         this is title
                     </h3>
@@ -25,6 +25,6 @@ export default function Seo({ params }) {
                     </p>
                 </div>
             </section>
-        </>
+        </div>
     );
 }
