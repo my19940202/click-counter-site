@@ -7,7 +7,7 @@ import { FaEdit } from "react-icons/fa";
 import { GrPowerReset as FaReset } from "react-icons/gr";
 import { AiFillSound } from "react-icons/ai";
 import { BsPhoneVibrateFill } from "react-icons/bs";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./hero.css";
 
 const defaultActiveMap = {
@@ -18,31 +18,41 @@ const defaultActiveMap = {
     vibrate: ''
 }
 
+function useId() {
+    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+}
+
 const defaultGridItems = [{
-    value: 0, name: 'untitled', index: 0
+    value: 0, name: 'untitled', id: useId()
 }]
 
 export default function Hero({ params }) {
-    // TODO: 这边的响应式布局 没有处理好 需要关注下
-    // 记录top bar不同的配置状态
+    const editModalRef = useRef(null);
+
     const [activeMap, setActiveMap] = useState(() => {
-        const storedMap = localStorage.getItem('activeMap');
-        return storedMap ? JSON.parse(storedMap) : defaultActiveMap;
+        if (typeof window !== 'undefined') {
+            const storedMap = window.localStorage.getItem('activeMap');
+            return storedMap ? JSON.parse(storedMap) : defaultActiveMap;
+        }
+        return defaultActiveMap;
     });
     // Add new state for grid items
     const [gridItems, setGridItems] = useState(() => {
-        const storedItems = localStorage.getItem('gridItems');
-        return storedItems ? JSON.parse(storedItems) : defaultGridItems;
+        if (typeof window !== 'undefined') {
+            const storedItems = window.localStorage.getItem('gridItems');
+            return storedItems ? JSON.parse(storedItems) : defaultGridItems;
+        }
+        return defaultGridItems;
     });
 
     // 记录activeMap
     useEffect(() => {
-        localStorage.setItem('activeMap', JSON.stringify(activeMap));
+        window.localStorage.setItem('activeMap', JSON.stringify(activeMap));
     }, [activeMap]);
 
     // 记录gridItems
     useEffect(() => {
-        localStorage.setItem('gridItems', JSON.stringify(gridItems));
+        window.localStorage.setItem('gridItems', JSON.stringify(gridItems));
     }, [gridItems]);
 
 
@@ -55,39 +65,37 @@ export default function Hero({ params }) {
 
     // Add new handler for adding grid items
     const handleAddItem = () => {
-        const newIndex = gridItems.length + 1;
         setGridItems([...gridItems, {
-            value: 0, name: 'untitled ' + newIndex, index: newIndex
+            value: 0, name: 'untitled ' + (gridItems.length + 1), id: useId()
         }]);
     }
 
-    const handleDeleteItem = (index) => {
-        setGridItems(gridItems.filter((_, i) => i !== index));
+    const handleDeleteItem = (id) => {
+        setGridItems(gridItems.filter(item => item.id !== id));
     }
 
-    const handleChangeValue = (index, change) => {
-        setGridItems(gridItems.map((item, i) => i === index ? { ...item, value: item.value + change } : item));
+    const handleChangeValue = (id, change) => {
+        setGridItems(gridItems.map(item => item.id === id ? { ...item, value: item.value + change } : item));
     }
 
-    // Add new handler for editing item name
-    const handleEditItem = (index) => {
-        document.getElementById('edit_modal').showModal();
-        // Store current editing index
-        setEditingIndex(index);
-        setEditingName(gridItems[index].name);
+    // 标题编辑部分逻辑
+    const handleEditItem = (id) => {
+        editModalRef.current.showModal();
+        setEditingId(id);
+        setEditingName(gridItems.find(item => item.id === id).name);
     }
 
     // Add new state for editing
-    const [editingIndex, setEditingIndex] = useState(null);
+    const [editingId, setEditingId] = useState(null);
     const [editingName, setEditingName] = useState('');
 
     // Add handler for saving edited name
     const handleSaveEdit = () => {
-        if (editingIndex !== null) {
-            setGridItems(gridItems.map((item, i) =>
-                i === editingIndex ? { ...item, name: editingName } : item
+        if (editingId !== null) {
+            setGridItems(gridItems.map(item =>
+                item.id === editingId ? { ...item, name: editingName } : item
             ));
-            document.getElementById('edit_modal').close();
+            editModalRef.current.close();
         }
     }
 
@@ -120,8 +128,8 @@ export default function Hero({ params }) {
         }
     ];
 
-    const handleReset = (index) => {
-        setGridItems(gridItems.map((item, i) => i === index ? { ...item, value: 0 } : item));
+    const handleReset = (id) => {
+        setGridItems(gridItems.map(item => item.id === id ? { ...item, value: 0 } : item));
     }
 
     return (
@@ -158,33 +166,35 @@ export default function Hero({ params }) {
 
             {/* 内容区域 */}
             <div className={`grid gap-4 grid-cols-1 md:grid-cols-3`}>
-                {gridItems.map((item, index) => (
-                    <div key={index} className="counter-card">
+                {gridItems.map((item) => (
+                    <div key={item.id} className="counter-card">
                         <div className="counter-title text-2xl text-green-400 p-2 m-auto w-[80%]">
                             <span>{item.name}</span>
                             <FaEdit size="16"
                                 className="cursor-pointer edit-icon inline opacity-0 ml-2"
-                                onClick={() => handleEditItem(index)}
+                                onClick={() => handleEditItem(item.id)}
                             />
                         </div>
-                        <div className="count-title text-green-400 mb-4 py-5">{item.value}</div>
+                        <div className="count-title text-green-400 mb-4 py-5">
+                            {item.value}
+                        </div>
                         <div className="flex justify-between border-t border-[#4b5563]">
                             <button
                                 className={`flex-1 text-white p-2 hover:bg-gray-600 active:bg-gray-600 ${item.value === 0 ? 'btn-disabled' : ''}`}
-                                onClick={() => handleChangeValue(index, -1)}
+                                onClick={() => handleChangeValue(item.id, -1)}
                                 disabled={item.value === 0}>
                                 <MinusIcon size="24" className="m-auto" />
                             </button>
                             <button className="flex-1 text-white p-2 hover:bg-gray-600 border-l border-[#4b5563]"
-                                onClick={() => handleChangeValue(index, 1)}>
+                                onClick={() => handleChangeValue(item.id, 1)}>
                                 <PlusIcon size="24" className="m-auto" />
                             </button>
                         </div>
                         <div className="tooltip absolute cursor-pointer top-[5px]  hidden right-[5px]  delete-icon" data-tip="delete counter">
-                            <DeleteIcon size="24" onClick={() => handleDeleteItem(index)} />
+                            <DeleteIcon size="24" onClick={() => handleDeleteItem(item.id)} />
                         </div>
                         <div className="tooltip absolute cursor-pointer top-[5px] right-[35px] hidden reset-icon" data-tip="reset counter">
-                            <FaReset size="24" onClick={() => handleReset(index)} />
+                            <FaReset size="24" onClick={() => handleReset(item.id)} />
                         </div>
                     </div>
                 ))}
@@ -198,9 +208,7 @@ export default function Hero({ params }) {
                 </button>
             </div>
 
-            {/* Open the modal using document.getElementById('ID').showModal() method */}
-
-            <dialog id="edit_modal" className="modal">
+            <dialog ref={editModalRef} className="modal">
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">Edit Counter Name</h3>
                     <div className="py-4">
@@ -221,6 +229,6 @@ export default function Hero({ params }) {
                 </div>
             </dialog>
 
-        </section>
+        </section >
     );
 }
