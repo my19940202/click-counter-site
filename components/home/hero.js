@@ -18,16 +18,13 @@ const defaultActiveMap = {
     vibrate: ''
 }
 
-function useId() {
-    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-}
-
 const defaultGridItems = [{
-    value: 0, name: 'untitled', id: useId()
+    value: 0, name: 'untitled', id: '0-0'
 }]
 
 export default function Hero({ params }) {
     const editModalRef = useRef(null);
+    const generateId = 0;
 
     const [activeMap, setActiveMap] = useState(() => {
         if (typeof window !== 'undefined') {
@@ -66,7 +63,9 @@ export default function Hero({ params }) {
     // Add new handler for adding grid items
     const handleAddItem = () => {
         setGridItems([...gridItems, {
-            value: 0, name: 'untitled ' + (gridItems.length + 1), id: useId()
+            value: 0,
+            name: 'untitled ' + (gridItems.length + 1),
+            id: generateId + '-' + gridItems.length
         }]);
     }
 
