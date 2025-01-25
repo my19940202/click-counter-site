@@ -4,7 +4,7 @@
 }
 
 .counter-card {
-  @apply bg-[#202020] text-[#f7f7f7] rounded-lg shadow-lg border-2 border-[#202020] transition-colors duration-300 text-center relative hover:border-solid hover:border-2 hover:border-sky-500
+  @apply bg-[#202020] text-[#f7f7f7] rounded-lg shadow-lg border-2 border-[#202020] transition-colors duration-300 text-center relative hover:border-solid hover:border-2 hover:border-gray-600
 }
 
 .counter-card:hover .delete-icon {
@@ -17,4 +17,12 @@
 
 .counter-card:hover .reset-icon {
   display: block;
+}
+
+.counter-card .hover-btn {
+  @apply tooltip absolute cursor-pointer top-[5px] hidden text-gray-600
+}
+
+.counter-card .hover-btn:hover {
+  color: #4ade80;
 }

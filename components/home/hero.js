@@ -8,6 +8,7 @@ import { GrPowerReset as FaReset } from "react-icons/gr";
 import { AiFillSound } from "react-icons/ai";
 import { BsPhoneVibrateFill } from "react-icons/bs";
 import { useState, useEffect, useRef } from "react";
+import isMobile from '@/lib/function/isMobile';
 import "./hero.css";
 
 const defaultActiveMap = {
@@ -33,7 +34,7 @@ export default function Hero({ params }) {
         }
         return defaultActiveMap;
     });
-    // Add new state for grid items
+    // add grid items
     const [gridItems, setGridItems] = useState(() => {
         if (typeof window !== 'undefined') {
             const storedItems = window.localStorage.getItem('gridItems');
@@ -42,25 +43,24 @@ export default function Hero({ params }) {
         return defaultGridItems;
     });
 
-    // 记录activeMap
+    // update activeMap
     useEffect(() => {
         window.localStorage.setItem('activeMap', JSON.stringify(activeMap));
     }, [activeMap]);
 
-    // 记录gridItems
+    // update gridItems
     useEffect(() => {
         window.localStorage.setItem('gridItems', JSON.stringify(gridItems));
     }, [gridItems]);
 
-
-    const handleClick = (type) => {
+    const handleActiveMapClick = (type) => {
         setActiveMap({
             ...activeMap,
             [type]: activeMap[type] ? '' : 'text-[#4ade80]'
         });
     }
 
-    // Add new handler for adding grid items
+    // 添加新的网格项处理函数
     const handleAddItem = () => {
         setGridItems([...gridItems, {
             value: 0,
@@ -74,10 +74,16 @@ export default function Hero({ params }) {
     }
 
     const handleChangeValue = (id, change) => {
+        // 播放点击音效 参考 https://pomofocus.io/ 的按钮点击声音
+        if (activeMap.sound) {
+            const clickSound = new Audio('https://pomofocus.io/audios/general/button.wav');
+            clickSound.play();
+        }
+
         setGridItems(gridItems.map(item => item.id === id ? { ...item, value: item.value + change } : item));
     }
 
-    // 标题编辑部分逻辑
+    // update counter name
     const handleEditItem = (id) => {
         editModalRef.current.showModal();
         setEditingId(id);
@@ -125,7 +131,7 @@ export default function Hero({ params }) {
             icon: BsPhoneVibrateFill,
             position: 'right'
         }
-    ];
+    ].filter(ele => isMobile() ? true : ele.type !== 'vibrate');
 
     const handleReset = (id) => {
         setGridItems(gridItems.map(item => item.id === id ? { ...item, value: 0 } : item));
@@ -142,7 +148,7 @@ export default function Hero({ params }) {
                             <button
                                 key={btn.type}
                                 className={`w-8 h-8 ${activeMap[btn.type] || 'text-gray-600'}`}
-                                onClick={() => handleClick(btn.type)}
+                                onClick={() => handleActiveMapClick(btn.type)}
                             >
                                 <btn.icon size="24" />
                             </button>
@@ -155,7 +161,7 @@ export default function Hero({ params }) {
                             <button
                                 key={btn.type}
                                 className={`w-8 h-8 ${activeMap[btn.type] || 'text-gray-600'}`}
-                                onClick={() => handleClick(btn.type)}
+                                onClick={() => handleActiveMapClick(btn.type)}
                             >
                                 <btn.icon size="24" />
                             </button>
@@ -163,18 +169,17 @@ export default function Hero({ params }) {
                 </div>
             </div>
 
-            {/* 内容区域 */}
-            <div className={`grid gap-4 grid-cols-1 md:grid-cols-3`}>
+            {/* counter area */}
+            <div className={`grid gap-4 grid-cols-1 md:grid-cols-${gridItems.length >= 3 ? 3 : gridItems.length}`}>
                 {gridItems.map((item) => (
                     <div key={item.id} className="counter-card">
-                        <div className="counter-title text-2xl text-green-400 p-2 m-auto w-[80%]">
+                        <div className="counter-title text-2xl text-green-600 p-2 m-auto w-[80%]"
+                            onClick={() => handleEditItem(item.id)}
+                        >
                             <span>{item.name}</span>
-                            <FaEdit size="16"
-                                className="cursor-pointer edit-icon inline opacity-0 ml-2"
-                                onClick={() => handleEditItem(item.id)}
-                            />
+                            <FaEdit size="16" className="cursor-pointer edit-icon inline opacity-0 ml-2" />
                         </div>
-                        <div className="count-title text-green-400 mb-4 py-5">
+                        <div className="count-title text-green-600 mb-4 py-5">
                             {item.value}
                         </div>
                         <div className="flex justify-between border-t border-[#4b5563]">
@@ -189,10 +194,10 @@ export default function Hero({ params }) {
                                 <PlusIcon size="24" className="m-auto" />
                             </button>
                         </div>
-                        <div className="tooltip absolute cursor-pointer top-[5px]  hidden right-[5px]  delete-icon" data-tip="delete counter">
+                        <div className="hover-btn right-[5px] delete-icon" data-tip="delete counter">
                             <DeleteIcon size="24" onClick={() => handleDeleteItem(item.id)} />
                         </div>
-                        <div className="tooltip absolute cursor-pointer top-[5px] right-[35px] hidden reset-icon" data-tip="reset counter">
+                        <div className="hover-btn right-[35px] reset-icon" data-tip="reset counter">
                             <FaReset size="24" onClick={() => handleReset(item.id)} />
                         </div>
                     </div>
@@ -206,7 +211,13 @@ export default function Hero({ params }) {
                     <IoMdAdd size="24" /> add new counter
                 </button>
             </div>
-
+            <div>
+                <p className="text-lg ">
+                    Your click counts are automatically stored in your browser's localStorage.
+                    Clearing your browsing data will erase them. To keep your counters backed up online, sign up for a free account.
+                </p>
+            </div>
+            {/* edit counter dialog */}
             <dialog ref={editModalRef} className="modal">
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">Edit Counter Name</h3>
