@@ -15,8 +15,8 @@ const defaultActiveMap = {
     list: '',
     square: '',
     share: '',
-    sound: '',
-    vibrate: ''
+    sound: 'text-[#4ade80]',
+    vibrate: 'text-[#4ade80]'
 }
 
 const isMobile = () => {
@@ -28,6 +28,35 @@ const isMobile = () => {
 const defaultGridItems = [{
     value: 0, name: 'untitled', id: '0-0'
 }]
+
+// Define buttons configuration
+const topBarButtons = [
+    // {
+    //     type: 'list',
+    //     icon: FaListUl,
+    //     position: 'left'
+    // },
+    {
+        type: 'square',
+        icon: FaSquare,
+        position: 'left'
+    },
+    // {
+    //     type: 'share',
+    //     icon: FaSquareShareNodes,
+    //     position: 'right'
+    // },
+    {
+        type: 'sound',
+        icon: AiFillSound,
+        position: 'right'
+    },
+    {
+        type: 'vibrate',
+        icon: BsPhoneVibrateFill,
+        position: 'right'
+    }
+].filter(ele => isMobile() ? true : ele.type !== 'vibrate');
 
 export default function Hero({ params }) {
     const editModalRef = useRef(null);
@@ -89,6 +118,11 @@ export default function Hero({ params }) {
             change === 1 ? add.play() : minus.play();
         }
 
+        // 振动50毫秒
+        if (activeMap.vibrate && typeof window !== 'undefined' && 'vibrate' in window.navigator) {
+            window.navigator.vibrate(50);
+        }
+
         setGridItems(gridItems.map(item => item.id === id ? { ...item, value: item.value + change } : item));
     }
 
@@ -113,37 +147,17 @@ export default function Hero({ params }) {
         }
     }
 
-    // Define buttons configuration
-    const topBarButtons = [
-        {
-            type: 'list',
-            icon: FaListUl,
-            position: 'left'
-        },
-        {
-            type: 'square',
-            icon: FaSquare,
-            position: 'left'
-        },
-        {
-            type: 'share',
-            icon: FaSquareShareNodes,
-            position: 'right'
-        },
-        {
-            type: 'sound',
-            icon: AiFillSound,
-            position: 'right'
-        },
-        {
-            type: 'vibrate',
-            icon: BsPhoneVibrateFill,
-            position: 'right'
-        }
-    ].filter(ele => isMobile() ? true : ele.type !== 'vibrate');
-
     const handleReset = (id) => {
         setGridItems(gridItems.map(item => item.id === id ? { ...item, value: 0 } : item));
+    }
+
+    const handleShare = () => {
+        setTimeout(() => {
+            alert(seoText.Hero.comingSoon)
+        }, 500)
+        fetch('/api/share')
+            .then(response => response.json())
+            .catch(error => console.error('Error', error));
     }
 
     return (
@@ -163,7 +177,7 @@ export default function Hero({ params }) {
                             </button>
                         ))}
                 </div>
-                <div className="w-28 md:pr-0 flex items-center justify-between">
+                <div className="w-20 md:pr-0 flex items-center justify-between">
                     {topBarButtons
                         .filter(btn => btn.position === 'right')
                         .map(btn => (
@@ -179,7 +193,7 @@ export default function Hero({ params }) {
             </div>
 
             {/* counter area 123列的逻辑 时而时而不生效。。。 */}
-            <div className={`grid gap-4 grid-cols-1 md:grid-cols-${gridItems.length >= 3 ? 3 : gridItems.length}`}>
+            <div className={`grid gap-4 grid-cols-1 md:grid-cols-3`}>
                 {gridItems.map((item) => (
                     <div key={item.id} className="counter-card">
                         <div className="counter-title text-2xl text-green-600 p-2 m-auto w-[80%]"
@@ -220,6 +234,14 @@ export default function Hero({ params }) {
                     <IoMdAdd size="24" /> add new counter
                 </button>
             </div>
+            <div className="w-full flex justify-center mt-4">
+                <button
+                    className="btn btn-wide bg-gray-600"
+                    onClick={handleShare}
+                >
+                    <FaSquareShareNodes size="24" /> share counter
+                </button>
+            </div>
             <div>
                 <p className="text-lg text-center py-4">
                     {seoText.Hero.remind}
@@ -240,8 +262,8 @@ export default function Hero({ params }) {
                     </div>
                     <div className="modal-action">
                         <form method="dialog" className="flex gap-2">
-                            <button className="btn" onClick={handleSaveEdit}>Save</button>
                             <button className="btn">Cancel</button>
+                            <button className="btn" onClick={handleSaveEdit}>Save</button>
                         </form>
                     </div>
                 </div>

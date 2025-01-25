@@ -1,10 +1,6 @@
-import { locales } from './lib/i18n';
-import { NextRequest } from 'next/server';
 
 export function middleware(request) {
-    const { pathname } = request.nextUrl;
-
-    const isExit = locales.some((locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`);
+    const isExit = true;
 
     if (isExit) return;
 

@@ -4,6 +4,7 @@ let data = {
             "delete": "delete counter",
             "reset": "reset counter"
         },
+        comingSoon: 'Share feature is coming soon',
         "remind": `
             Your click counters are automatically stored in your browser's localStorage.
             Clearing your browsing data or using incognito/private mode will erase them.
@@ -23,12 +24,12 @@ let data = {
         "usage": {
             "title": "📖 How to use Click Counter Online",
             "content": `
-                When using Click Counter Online, you can click the plus button to increment the counter by 1, and click the minus button to decrement the counter by 1. When the value reaches 0, the minus button will be automatically disabled to prevent negative numbers.
+                When using Click Counter Online, you can click the ➕ plus button to increment the counter by 1, and click the ➖ minus button to decrement the counter by 1. When the value reaches 0, the minus button will be automatically disabled to prevent negative numbers.
                 <br/ ><br/ >
                 <p>When hovering over the counter card, two function buttons will appear in the top right corner:</p>
                 <ul>
-                    <li>Reset button: Click to reset the current counter to zero</li>
-                    <li>Delete button: Click to permanently delete the counter</li>
+                    <li>🔄 Reset button: Click to reset the current counter to zero</li>
+                    <li>🗑️ Delete button: Click to permanently delete the counter</li>
                 </ul>
                 <br/ >
                 Click on the counter title area to edit the counter name. Enter the new name in the pop-up dialog and click save.<br/ >
