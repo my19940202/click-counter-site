@@ -18,7 +18,7 @@ export default function Footer() {
                 setLangName(pathname.split("/")[1]);
             }
             setLinkList([
-                ...NavLinksList[`LINK_${langName.toUpperCase()}`],
+                // ...NavLinksList[`LINK_${langName.toUpperCase()}`],
                 ...BackLink[`LINK_${langName.toUpperCase()}`]
             ]);
         };
@@ -47,7 +47,7 @@ export default function Footer() {
                         </div>
                     </a>
                     <div className="flex flex-wrap justify-center gap-x-2 md:gap-x-5 gap-y-1">
-                        {/* {linkList.map((link, index) => {
+                        {linkList.map((link, index) => {
                             return (
                                 <a
                                     key={index}
@@ -58,7 +58,7 @@ export default function Footer() {
                                     {link.name}
                                 </a>
                             );
-                        })} */}
+                        })}
                     </div>
                 </div>
             </div>

@@ -8,8 +8,8 @@ import { GrPowerReset as FaReset } from "react-icons/gr";
 import { AiFillSound } from "react-icons/ai";
 import { BsPhoneVibrateFill } from "react-icons/bs";
 import { useState, useEffect, useRef } from "react";
-import isMobile from '@/lib/function/isMobile';
 import "./hero.css";
+import { getDictionary } from '@/lib/i18n';
 
 const defaultActiveMap = {
     list: '',
@@ -19,6 +19,12 @@ const defaultActiveMap = {
     vibrate: ''
 }
 
+const isMobile = () => {
+    if (typeof window === 'undefined') return false; // 处理SSR场景
+    const userAgent = window.navigator.userAgent || window.navigator.vendor || window.opera;
+    return /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase());
+};
+
 const defaultGridItems = [{
     value: 0, name: 'untitled', id: '0-0'
 }]
@@ -26,6 +32,8 @@ const defaultGridItems = [{
 export default function Hero({ params }) {
     const editModalRef = useRef(null);
     const generateId = 0;
+    const { lang = 'en' } = params;
+    const seoText = getDictionary(lang);
 
     const [activeMap, setActiveMap] = useState(() => {
         if (typeof window !== 'undefined') {
@@ -76,8 +84,9 @@ export default function Hero({ params }) {
     const handleChangeValue = (id, change) => {
         // 播放点击音效 参考 https://pomofocus.io/ 的按钮点击声音
         if (activeMap.sound) {
-            const clickSound = new Audio('https://pomofocus.io/audios/general/button.wav');
-            clickSound.play();
+            const minus = new Audio('https://pomofocus.io/audios/general/button.wav');
+            const add = new Audio('https://clickcounter.io/audio/click-click.mp3');
+            change === 1 ? add.play() : minus.play();
         }
 
         setGridItems(gridItems.map(item => item.id === id ? { ...item, value: item.value + change } : item));
@@ -169,7 +178,7 @@ export default function Hero({ params }) {
                 </div>
             </div>
 
-            {/* counter area */}
+            {/* counter area 123列的逻辑 时而时而不生效。。。 */}
             <div className={`grid gap-4 grid-cols-1 md:grid-cols-${gridItems.length >= 3 ? 3 : gridItems.length}`}>
                 {gridItems.map((item) => (
                     <div key={item.id} className="counter-card">
@@ -194,10 +203,10 @@ export default function Hero({ params }) {
                                 <PlusIcon size="24" className="m-auto" />
                             </button>
                         </div>
-                        <div className="hover-btn right-[5px] delete-icon" data-tip="delete counter">
+                        <div className="hover-btn right-[5px] delete-icon" data-tip={seoText.Hero.tooltip.delete}>
                             <DeleteIcon size="24" onClick={() => handleDeleteItem(item.id)} />
                         </div>
-                        <div className="hover-btn right-[35px] reset-icon" data-tip="reset counter">
+                        <div className="hover-btn right-[35px] reset-icon" data-tip={seoText.Hero.tooltip.reset}>
                             <FaReset size="24" onClick={() => handleReset(item.id)} />
                         </div>
                     </div>
@@ -212,9 +221,8 @@ export default function Hero({ params }) {
                 </button>
             </div>
             <div>
-                <p className="text-lg ">
-                    Your click counts are automatically stored in your browser's localStorage.
-                    Clearing your browsing data will erase them. To keep your counters backed up online, sign up for a free account.
+                <p className="text-lg text-center py-4">
+                    {seoText.Hero.remind}
                 </p>
             </div>
             {/* edit counter dialog */}
@@ -238,7 +246,6 @@ export default function Hero({ params }) {
                     </div>
                 </div>
             </dialog>
-
         </section >
     );
 }
