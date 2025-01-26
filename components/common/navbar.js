@@ -47,18 +47,33 @@ export default function Navbar() {
                     <h1 className="ml-3 font-bold leading-5 cursor-pointer">click counter</h1>
                 </a>
 
+                <ul className="w-3/5 px-5 font-medium hidden md:flex flex-nowrap items-center justify-around">
+                    {linkList.map((link, index) => {
+                        return (
+                            <li key={index} className="group py-3 text-center">
+                                <a
+                                    aria-label={link.name}
+                                    className="group relative"
+                                    title={link.name}
+                                    href={`/${langName}${link.url}`}
+                                >
+                                    {link.name}
+                                    <div className="absolute left-[50%] group-hover:left-0 w-0 group-hover:w-full h-[3px] transition-all duration-300 bg-base-content/90"></div>
+                                </a>
+                            </li>
+                        );
+                    })}
+                </ul>
+
                 <div className="md:w-1/5 flex items-center justify-end gap-2">
-                    {/* <div>
+                    <div>
                         <a title={'click counter online on X'} href='https://x.com/xbb89783293' target='_blank'>
                             <FaSquareTwitter size={30} />
                         </a>
-                    </div> */}
-                    {/* <a href="mailto:click counter onlinetop@163.com" target="_blank" className="block">
-                        <IoMailOpen size={30} />
-                    </a> */}
+                    </div>
                     <ThemeToggle />
                     <LangSwitch />
-                    {/* <details className="flex md:hidden dropdown dropdown-end">
+                    <details className="flex md:hidden dropdown dropdown-end">
                         <summary className="btn btn-ghost p-0">
                             <MdMenu size={18} />
                         </summary>
@@ -77,7 +92,7 @@ export default function Navbar() {
                                 );
                             })}
                         </ul>
-                    </details> */}
+                    </details>
                 </div>
             </div>
         </header>

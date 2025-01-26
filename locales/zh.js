@@ -5,7 +5,9 @@ let data = {
             "reset": "重置counter"
         },
         comingSoon: '分享功能开发中',
-        "remind": `您的点击计数器会自动存储在浏览器的本地存储中，清除浏览数据或使用隐身/隐私模式将会删除这些数据。`
+        "remind": `您的Click Counter点击计数器会自动存储在浏览器的本地存储中，
+        <br/ >✅刷新页面不会丢失数据
+        <br/ >❌清除浏览数据或使用隐身/隐私模式将会删除这些数据`
     },
     "Feature": {
         "description": {

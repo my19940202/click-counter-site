@@ -6,8 +6,9 @@ let data = {
         },
         comingSoon: 'Share feature is coming soon',
         "remind": `
-            Your click counters are automatically stored in your browser's localStorage.
-            Clearing your browsing data or using incognito/private mode will erase them.
+            Your click counters are automatically saved in your browser's local storage.
+            <br/ >✅ Page refresh won't erase your counters.
+            <br/ >❌ Clearing browser data or using incognito/private mode will delete them.
         `
     },
     "Feature": {

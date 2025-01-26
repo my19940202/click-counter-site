@@ -243,8 +243,8 @@ export default function Hero({ params }) {
                 </button>
             </div>
             <div>
-                <p className="text-lg text-center py-4">
-                    {seoText.Hero.remind}
+                <p className="text-lg text-center py-4"
+                    dangerouslySetInnerHTML={{ __html: seoText.Hero.remind }}>
                 </p>
             </div>
             {/* edit counter dialog */}

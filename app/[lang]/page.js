@@ -1,5 +1,4 @@
-// 这个页面对应了 http://localhost:3000/zh
-// 屏保入口
+
 import { defaultLocale } from "@/lib/i18n";
 import Hero from "@/components/home/hero";
 import Seo from "@/components/home/seo";
