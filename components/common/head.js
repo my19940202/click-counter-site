@@ -3,6 +3,7 @@ import React from "react";
 export default function CustomHead() {
     return (
         <>
+            <meta name="baidu-site-verification" content="codeva-pzhXJBf6Zw" />
             <script
                 async
                 src='https://www.googletagmanager.com/gtag/js?id=G-NHD32BFRGN'
