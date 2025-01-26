@@ -8,9 +8,11 @@
 ## 升级记录
 ### 01-25 计数功能 + SEO文案
 ### 01-26 功能list
-- 添加分享页面(主要用来引流)
-- 组件拆分 便于后续维护
-- list 和 block两种布局
+- doing 添加分享页面，主要用来引流，对于流量提升意义明显
+- ✅ 组件拆分 便于后续维护
+- ✅ 添加快捷方式
+- ❌ list 和 block两种布局，感觉优先级不高
+
 ## 参考资料
 - [react icons](https://react-icons.github.io/react-icons/search/#q=vibrate)
 - [模仿的竞品](https://tallycount.app/)

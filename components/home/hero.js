@@ -41,11 +41,6 @@ const topBarButtons = [
         icon: FaSquare,
         position: 'left'
     },
-    // {
-    //     type: 'share',
-    //     icon: FaSquareShareNodes,
-    //     position: 'right'
-    // },
     {
         type: 'sound',
         icon: AiFillSound,
@@ -64,6 +59,7 @@ export default function Hero({ params }) {
     const { lang = 'en' } = params;
     const seoText = getDictionary(lang);
 
+    const [activeCounterId, setActiveCounterId] = useState(0)
     const [activeMap, setActiveMap] = useState(() => {
         if (typeof window !== 'undefined') {
             const storedMap = window.localStorage.getItem('activeMap');
@@ -123,7 +119,11 @@ export default function Hero({ params }) {
             window.navigator.vibrate(50);
         }
 
-        setGridItems(gridItems.map(item => item.id === id ? { ...item, value: item.value + change } : item));
+        setGridItems(gridItems.map(item => {
+            const isTarget = item.id === id
+            const newValue = item.value + change;
+            return isTarget ? { ...item, value: newValue <= 0 ? 0 : newValue } : item
+        }));
     }
 
     // update counter name
@@ -160,6 +160,23 @@ export default function Hero({ params }) {
             .catch(error => console.error('Error', error));
     }
 
+    // Add gridItems as dependency to get latest state
+    useEffect(() => {
+        const handleKeyPress = (e) => {
+            if (e.key === '+' || e.key === '=') {
+                handleChangeValue(activeCounterId, 1)
+            } else if (e.key === '-' || e.key === '_') {
+                handleChangeValue(activeCounterId, -1)
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyPress);
+        return () => {
+            window.removeEventListener('keydown', handleKeyPress);
+        };
+    }, [gridItems, activeCounterId]);
+    // 如果不加activeCounterId，会因为闭包还是上一次的结果 无法实时更新
+
     return (
         <section className="pt-5 max-w-[1280px] min-h-[500px]">
             <TopBar
@@ -173,11 +190,13 @@ export default function Hero({ params }) {
                     <CounterCard
                         key={item.id}
                         item={item}
+                        active={activeCounterId === item.id}
                         handleEditItem={handleEditItem}
                         handleChangeValue={handleChangeValue}
                         handleDeleteItem={handleDeleteItem}
                         handleReset={handleReset}
-                        seoText={seoText}
+                        handleDefault={setActiveCounterId}
+                        tooltipText={seoText.Hero.tooltip}
                     />
                 ))}
             </div>

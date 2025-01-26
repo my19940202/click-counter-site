@@ -6,6 +6,19 @@ export default function EditModal({
     setEditingName,
     handleSaveEdit
 }) {
+    const handleXssInput = (text) => {
+        // Sanitize input to prevent XSS
+        const sanitizedValue = text
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+        // 注释掉这些中文输入法会触发异常
+        // .replace(/&/g, '&amp;')
+        // .replace(/"/g, '&quot;')
+        // .replace(/'/g, '&#x27;')
+        // .replace(/\//g, '&#x2F;');
+        setEditingName(sanitizedValue);
+    }
+
     return (
         <dialog ref={editModalRef} className="modal">
             <div className="modal-box">
@@ -14,7 +27,7 @@ export default function EditModal({
                     <input
                         type="text"
                         value={editingName}
-                        onChange={(e) => setEditingName(e.target.value)}
+                        onChange={(e) => handleXssInput(e.target.value)}
                         className="input input-bordered w-full"
                         placeholder="Enter counter name"
                     />

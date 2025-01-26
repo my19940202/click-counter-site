@@ -1,11 +1,11 @@
 "use client";
-import { useState } from "react";
 
 export default function TopBar({ activeMap, handleActiveMapClick, topBarButtons }) {
     return (
         <div className="mb-3 flex items-center justify-between">
             <div className="w-20 md:pl-0 flex items-center justify-between">
-                {topBarButtons
+                {/* TODO: 暂时还没支持list view */}
+                {/* {topBarButtons
                     .filter(btn => btn.position === 'left')
                     .map(btn => (
                         <button
@@ -15,7 +15,7 @@ export default function TopBar({ activeMap, handleActiveMapClick, topBarButtons 
                         >
                             <btn.icon size="24" />
                         </button>
-                    ))}
+                    ))} */}
             </div>
             <div className="w-20 md:pr-0 flex items-center justify-between">
                 {topBarButtons

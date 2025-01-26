@@ -6,39 +6,69 @@ import { FaCircleMinus as MinusIcon, FaCirclePlus as PlusIcon } from "react-icon
 
 export default function CounterCard({
     item,
+    active,
     handleEditItem,
     handleChangeValue,
     handleDeleteItem,
     handleReset,
-    seoText
+    handleDefault,
+    tooltipText
 }) {
+    const handleClick = (e) => {
+        handleDefault(item.id)
+        const target = e.target.closest('[data-type]');
+        if (!target) return;
+
+        const type = target.dataset.type;
+        switch (type) {
+            case 'edit':
+                handleEditItem(item.id);
+                break;
+            case 'decrement':
+                if (item.value > 0) handleChangeValue(item.id, -1);
+                break;
+            case 'increment':
+                handleChangeValue(item.id, 1);
+                break;
+            case 'delete':
+                handleDeleteItem(item.id);
+                break;
+            case 'reset':
+                handleReset(item.id);
+                break;
+            default:
+                break;
+        }
+    };
+    const activeClass = active ? 'active' : '';
+
     return (
-        <div className="counter-card">
-            <div className="counter-title text-2xl text-green-600 p-2 m-auto w-[80%]"
-                onClick={() => handleEditItem(item.id)}>
-                <span>{item.name}</span>
-                <FaEdit size="16" className="cursor-pointer edit-icon inline opacity-0 ml-2" />
+        <div className={`counter-card ${activeClass}`} onClick={handleClick}>
+            <div className="counter-title text-2xl text-green-600 p-2 m-auto w-[80%]">
+                <span data-type="edit">{item.name}</span>
+                <FaEdit size="16" data-type="edit" className="cursor-pointer edit-icon inline opacity-0 ml-2" />
             </div>
             <div className="count-title text-green-600 mb-4 py-5">
                 {item.value}
             </div>
             <div className="flex justify-between border-t border-[#4b5563]">
                 <button
+                    data-type="decrement"
                     className={`flex-1 text-white p-2 hover:bg-gray-600 active:bg-gray-600 ${item.value === 0 ? 'btn-disabled' : ''}`}
-                    onClick={() => handleChangeValue(item.id, -1)}
                     disabled={item.value === 0}>
                     <MinusIcon size="24" className="m-auto" />
                 </button>
-                <button className="flex-1 text-white p-2 hover:bg-gray-600 border-l border-[#4b5563]"
-                    onClick={() => handleChangeValue(item.id, 1)}>
+                <button
+                    data-type="increment"
+                    className="flex-1 text-white p-2 hover:bg-gray-600 border-l border-[#4b5563]">
                     <PlusIcon size="24" className="m-auto" />
                 </button>
             </div>
-            <div className="hover-btn right-[5px] delete-icon" data-tip={seoText.Hero.tooltip.delete}>
-                <DeleteIcon size="24" onClick={() => handleDeleteItem(item.id)} />
+            <div className="hover-btn right-[5px] delete-icon" data-tip={tooltipText.delete}>
+                <DeleteIcon size="24" data-type="delete" />
             </div>
-            <div className="hover-btn right-[35px] reset-icon" data-tip={seoText.Hero.tooltip.reset}>
-                <FaReset size="24" onClick={() => handleReset(item.id)} />
+            <div className="hover-btn right-[35px] reset-icon" data-tip={tooltipText.reset}>
+                <FaReset size="24" data-type="reset" />
             </div>
         </div>
     );
