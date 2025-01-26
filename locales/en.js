@@ -41,11 +41,11 @@ let data = {
             "title": "📌 Use Cases for Click Counter Online",
             "content": `
                 <ul>
-                    <li>Attendance tracking: Meeting check-ins, wedding guest counts, classroom roll calls</li>
-                    <li>Inventory management: Parking space counts, warehouse stocktaking, supermarket goods tracking, library book management</li>
-                    <li>Industrial counting: Production line process counting, quality inspection records, equipment operation cycle tracking</li>
-                    <li>Fitness counting: Push-up counts, jump rope counts, squat counts, pull-up counts</li>
-                    <li>Sports score tracking: Basketball scores, ping pong scores, badminton game counts</li>
+                    <li>1️⃣ Attendance tracking: Meeting check-ins, wedding guest counts, classroom roll calls</li>
+                    <li>2️⃣ Inventory management: Parking space counts, warehouse stocktaking, supermarket goods tracking, library book management</li>
+                    <li>3️⃣ Industrial counting: Production line process counting, quality inspection records, equipment operation cycle tracking</li>
+                    <li>4️⃣ Fitness counting: Push-up counts, jump rope counts, squat counts, pull-up counts</li>
+                    <li>5️⃣ Sports score tracking: Basketball scores, ping pong scores, badminton game counts</li>
                 </ul>
             `
         }

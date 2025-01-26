@@ -1,15 +1,15 @@
 "use client";
 
-import { FaListUl } from "react-icons/fa";
-import { FaSquare, FaSquareShareNodes, FaCircleMinus as MinusIcon, FaCirclePlus as PlusIcon } from "react-icons/fa6";
-import { MdOutlineAddToPhotos as IoMdAdd, MdDeleteForever as DeleteIcon } from "react-icons/md";
-import { FaEdit } from "react-icons/fa";
-import { GrPowerReset as FaReset } from "react-icons/gr";
+import { FaSquare, FaSquareShareNodes } from "react-icons/fa6";
+import { MdOutlineAddToPhotos as IoMdAdd } from "react-icons/md";
 import { AiFillSound } from "react-icons/ai";
 import { BsPhoneVibrateFill } from "react-icons/bs";
 import { useState, useEffect, useRef } from "react";
-import "./hero.css";
+import TopBar from './TopBar';
+import CounterCard from './CounterCard';
+import EditModal from './EditModal';
 import { getDictionary } from '@/lib/i18n';
+import './hero.css'
 
 const defaultActiveMap = {
     list: '',
@@ -162,70 +162,27 @@ export default function Hero({ params }) {
 
     return (
         <section className="pt-5 max-w-[1280px] min-h-[500px]">
-            {/* top bar */}
-            <div className="mb-3 flex items-center justify-between">
-                <div className="w-20 md:pl-0 flex items-center justify-between">
-                    {topBarButtons
-                        .filter(btn => btn.position === 'left')
-                        .map(btn => (
-                            <button
-                                key={btn.type}
-                                className={`w-8 h-8 ${activeMap[btn.type] || 'text-gray-600'}`}
-                                onClick={() => handleActiveMapClick(btn.type)}
-                            >
-                                <btn.icon size="24" />
-                            </button>
-                        ))}
-                </div>
-                <div className="w-20 md:pr-0 flex items-center justify-between">
-                    {topBarButtons
-                        .filter(btn => btn.position === 'right')
-                        .map(btn => (
-                            <button
-                                key={btn.type}
-                                className={`w-8 h-8 ${activeMap[btn.type] || 'text-gray-600'}`}
-                                onClick={() => handleActiveMapClick(btn.type)}
-                            >
-                                <btn.icon size="24" />
-                            </button>
-                        ))}
-                </div>
-            </div>
+            <TopBar
+                activeMap={activeMap}
+                handleActiveMapClick={handleActiveMapClick}
+                topBarButtons={topBarButtons}
+            />
 
-            {/* counter area 123列的逻辑 时而时而不生效。。。 */}
             <div className={`grid gap-4 grid-cols-1 md:grid-cols-3`}>
                 {gridItems.map((item) => (
-                    <div key={item.id} className="counter-card">
-                        <div className="counter-title text-2xl text-green-600 p-2 m-auto w-[80%]"
-                            onClick={() => handleEditItem(item.id)}
-                        >
-                            <span>{item.name}</span>
-                            <FaEdit size="16" className="cursor-pointer edit-icon inline opacity-0 ml-2" />
-                        </div>
-                        <div className="count-title text-green-600 mb-4 py-5">
-                            {item.value}
-                        </div>
-                        <div className="flex justify-between border-t border-[#4b5563]">
-                            <button
-                                className={`flex-1 text-white p-2 hover:bg-gray-600 active:bg-gray-600 ${item.value === 0 ? 'btn-disabled' : ''}`}
-                                onClick={() => handleChangeValue(item.id, -1)}
-                                disabled={item.value === 0}>
-                                <MinusIcon size="24" className="m-auto" />
-                            </button>
-                            <button className="flex-1 text-white p-2 hover:bg-gray-600 border-l border-[#4b5563]"
-                                onClick={() => handleChangeValue(item.id, 1)}>
-                                <PlusIcon size="24" className="m-auto" />
-                            </button>
-                        </div>
-                        <div className="hover-btn right-[5px] delete-icon" data-tip={seoText.Hero.tooltip.delete}>
-                            <DeleteIcon size="24" onClick={() => handleDeleteItem(item.id)} />
-                        </div>
-                        <div className="hover-btn right-[35px] reset-icon" data-tip={seoText.Hero.tooltip.reset}>
-                            <FaReset size="24" onClick={() => handleReset(item.id)} />
-                        </div>
-                    </div>
+                    <CounterCard
+                        key={item.id}
+                        item={item}
+                        handleEditItem={handleEditItem}
+                        handleChangeValue={handleChangeValue}
+                        handleDeleteItem={handleDeleteItem}
+                        handleReset={handleReset}
+                        seoText={seoText}
+                    />
                 ))}
             </div>
+
+            {/* Add and Share buttons */}
             <div className="w-full flex justify-center mt-4">
                 <button
                     className="btn btn-wide bg-[#4ade80] hover:btn-outline"
@@ -242,32 +199,19 @@ export default function Hero({ params }) {
                     <FaSquareShareNodes size="24" /> share counter
                 </button>
             </div>
+
             <div>
                 <p className="text-lg text-center py-4"
                     dangerouslySetInnerHTML={{ __html: seoText.Hero.remind }}>
                 </p>
             </div>
-            {/* edit counter dialog */}
-            <dialog ref={editModalRef} className="modal">
-                <div className="modal-box">
-                    <h3 className="font-bold text-lg">Edit Counter Name</h3>
-                    <div className="py-4">
-                        <input
-                            type="text"
-                            value={editingName}
-                            onChange={(e) => setEditingName(e.target.value)}
-                            className="input input-bordered w-full"
-                            placeholder="Enter counter name"
-                        />
-                    </div>
-                    <div className="modal-action">
-                        <form method="dialog" className="flex gap-2">
-                            <button className="btn">Cancel</button>
-                            <button className="btn" onClick={handleSaveEdit}>Save</button>
-                        </form>
-                    </div>
-                </div>
-            </dialog>
-        </section >
+
+            <EditModal
+                editModalRef={editModalRef}
+                editingName={editingName}
+                setEditingName={setEditingName}
+                handleSaveEdit={handleSaveEdit}
+            />
+        </section>
     );
 }
