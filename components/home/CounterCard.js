@@ -44,7 +44,7 @@ export default function CounterCard({
 
     return (
         <div className={`counter-card ${activeClass}`} onClick={handleClick}>
-            <div className="counter-title text-2xl text-green-600 p-2 m-auto w-[80%]">
+            <div className="counter-title text-2xl text-green-600 p-2 m-auto w-[80%] whitespace-nowrap overflow-hidden text-ellipsis">
                 <span data-type="edit">{item.name}</span>
                 <FaEdit size="16" data-type="edit" className="cursor-pointer edit-icon inline opacity-0 ml-2" />
             </div>

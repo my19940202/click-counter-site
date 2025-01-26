@@ -4,6 +4,7 @@ import { FaSquare, FaSquareShareNodes } from "react-icons/fa6";
 import { MdOutlineAddToPhotos as IoMdAdd } from "react-icons/md";
 import { AiFillSound } from "react-icons/ai";
 import { BsPhoneVibrateFill } from "react-icons/bs";
+import { LuDownload } from "react-icons/lu";
 import { useState, useEffect, useRef } from "react";
 import TopBar from './TopBar';
 import CounterCard from './CounterCard';
@@ -28,6 +29,28 @@ const isMobile = () => {
 const defaultGridItems = [{
     value: 0, name: 'untitled', id: '0-0'
 }]
+
+// Add new function to export CSV
+const handleExportCSV = (data = []) => {
+    // Create CSV content
+    const headers = ['Name', 'Value'];
+    const rows = data.map(item => [item.name, item.value]);
+    const csvContent = [
+        headers.join(','),
+        ...rows.map(row => row.join(','))
+    ].join('\n');
+
+    // Create blob and download
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    const date = new Date().toISOString().slice(0, 10);
+    link.setAttribute('download', `counters_${date}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
 
 // Define buttons configuration
 const topBarButtons = [
@@ -160,6 +183,8 @@ export default function Hero({ params }) {
             .catch(error => console.error('Error', error));
     }
 
+    const handleDownload = () => handleExportCSV(gridItems);
+
     // Add gridItems as dependency to get latest state
     useEffect(() => {
         const handleKeyPress = (e) => {
@@ -207,15 +232,21 @@ export default function Hero({ params }) {
                     className="btn btn-wide bg-[#4ade80] hover:btn-outline"
                     onClick={handleAddItem}
                 >
-                    <IoMdAdd size="24" /> add new counter
+                    <IoMdAdd size="24" /> {seoText.Hero.add}
                 </button>
             </div>
             <div className="w-full flex justify-center mt-4">
                 <button
-                    className="btn btn-wide bg-gray-600"
+                    className="btn bg-gray-600"
                     onClick={handleShare}
                 >
-                    <FaSquareShareNodes size="24" /> share counter
+                    <FaSquareShareNodes size="24" /> {seoText.Hero.share}
+                </button>
+                <button
+                    className="btn bg-gray-600 ml-4"
+                    onClick={handleDownload}
+                >
+                    <LuDownload size="24" /> {seoText.Hero.download}
                 </button>
             </div>
 
@@ -226,6 +257,7 @@ export default function Hero({ params }) {
             </div>
 
             <EditModal
+                text={seoText.Dialog}
                 editModalRef={editModalRef}
                 editingName={editingName}
                 setEditingName={setEditingName}
