@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { NavLinksList, BackLink } from "@/lib/navLinksList";
+import { Policy, BackLink } from "@/lib/navLinksList";
 import { usePathname } from "next/navigation";
 import { defaultLocale } from "@/lib/i18n";
 import { useEffect, useState } from "react";
@@ -18,7 +18,7 @@ export default function Footer() {
                 setLangName(pathname.split("/")[1]);
             }
             setLinkList([
-                // ...NavLinksList[`LINK_${langName.toUpperCase()}`],
+                ...Policy[`LINK_${langName.toUpperCase()}`],
                 ...BackLink[`LINK_${langName.toUpperCase()}`]
             ]);
         };
