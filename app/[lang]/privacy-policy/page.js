@@ -1,6 +1,18 @@
 import { defaultLocale } from "@/lib/i18n";
 import Content from '@/posts/privacy-policy.mdx'
 
+export async function getStaticPaths() {
+    // build时自动生成对应的页面提前 server渲染好 对SEO友好
+    const langs = ['zh', 'en'];
+    const paths = langs.map(lang => ({
+        params: { lang }
+    }));
+    return {
+        paths,
+        fallback: false
+    };
+}
+
 export default async function Home({ params }) {
     const langName = params.lang || defaultLocale;
     return (
