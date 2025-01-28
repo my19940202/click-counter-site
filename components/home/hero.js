@@ -9,6 +9,7 @@ import { useState, useEffect, useRef } from "react";
 import TopBar from './TopBar';
 import CounterCard from './CounterCard';
 import EditModal from './EditModal';
+import ShareModal from './ShareModal';
 import { getDictionary } from '@/lib/i18n';
 import './hero.css'
 
@@ -78,6 +79,7 @@ const topBarButtons = [
 
 export default function Hero({ params }) {
     const editModalRef = useRef(null);
+    const shareModalRef = useRef(null);
     const generateId = 0;
     const { lang = 'en' } = params;
     const seoText = getDictionary(lang);
@@ -175,12 +177,7 @@ export default function Hero({ params }) {
     }
 
     const handleShare = () => {
-        setTimeout(() => {
-            alert(seoText.Hero.comingSoon)
-        }, 500)
-        fetch('/api/share')
-            .then(response => response.json())
-            .catch(error => console.error('Error', error));
+        shareModalRef.current.showModal();
     }
 
     const handleDownload = () => handleExportCSV(gridItems);
@@ -262,6 +259,12 @@ export default function Hero({ params }) {
                 editingName={editingName}
                 setEditingName={setEditingName}
                 handleSaveEdit={handleSaveEdit}
+            />
+            <ShareModal
+                data={gridItems}
+                text={seoText.Dialog}
+                lang
+                shareModalRef={shareModalRef}
             />
         </section>
     );
