@@ -1,4 +1,3 @@
-import { defaultLocale } from "@/lib/i18n";
 import Content from '@/posts/term-of-use.mdx'
 
 export async function getStaticPaths() {

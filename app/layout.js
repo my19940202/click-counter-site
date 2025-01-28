@@ -4,6 +4,8 @@ import CustomHead from "@/components/common/head";
 import Navbar from "@/components/common/navbar";
 import Footer from "@/components/common/footer";
 import { Analytics } from "@vercel/analytics/react";
+// 此处是SSR 引入即初始化
+import "@/lib/dbInit";
 
 export const metadata = {
     title: SiteConfig.name,

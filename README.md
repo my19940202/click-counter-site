@@ -25,10 +25,11 @@
     1.2 [Google登录教程](https://coreychiu.com/blogs/google-oauth-setup)
     1.3 ✅ 发现还要去准备 这俩页面term-of-use privacy-policy
 2. 搞分享页面，用来引流和分享
-    2.1 ❓ 先要求登入 然后才能分享
+    2.1 ❌ 不要求登入 然后才能分享
+    2.0 设置数据库连接 and 获取数据
     2.2 ✅ counter页面点击分享页面，数据新增一条share记录
-    - 开发share页面，显示出对应的couter结果
-    - 看看有没有必要显示折线图
+    2.2.1 开发share页面 share list
+    2.2.2 share detail share/[id]/page
 3. ✅ 来个FAQ模块：匹配更多的关键词 优化SEO表现
 
 ## 参考资料
