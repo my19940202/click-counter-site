@@ -226,7 +226,7 @@ export default function Hero({ params }) {
             {/* Add and Share buttons */}
             <div className="w-full flex justify-center mt-4">
                 <button
-                    className="btn btn-wide bg-[#4ade80] hover:btn-outline"
+                    className="btn btn-wide bg-[#16a34a] hover:bg-gray-600"
                     onClick={handleAddItem}
                 >
                     <IoMdAdd size="24" /> {seoText.Hero.add}
@@ -234,13 +234,13 @@ export default function Hero({ params }) {
             </div>
             <div className="w-full flex justify-center mt-4">
                 <button
-                    className="btn bg-gray-600"
+                    className="btn bg-[#16a34a] hover:bg-gray-600"
                     onClick={handleShare}
                 >
                     <FaSquareShareNodes size="24" /> {seoText.Hero.share}
                 </button>
                 <button
-                    className="btn bg-gray-600 ml-4"
+                    className="btn bg-[#16a34a] hover:bg-gray-600 ml-4"
                     onClick={handleDownload}
                 >
                     <LuDownload size="24" /> {seoText.Hero.download}
@@ -262,7 +262,7 @@ export default function Hero({ params }) {
             />
             <ShareModal
                 data={gridItems}
-                text={seoText.Dialog}
+                text={seoText.ShareDialog}
                 lang
                 shareModalRef={shareModalRef}
             />

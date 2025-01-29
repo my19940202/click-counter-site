@@ -4,6 +4,23 @@ let data = {
         save: 'save',
         cancel: 'cancel'
     },
+    ShareDialog: {
+        title: 'Add Sharing Information',
+        save: 'Save',
+        cancel: 'Cancel',
+        placeholder: {
+            user: 'Please enter username',
+            title: 'Please enter sharing title',
+            desc: 'Please enter sharing description'
+        },
+        label: {
+            user: 'creator',
+            title: 'title',
+            desc: 'description',
+            time: 'time',
+            operation: 'operation'
+        }
+    },
     Hero: {
         tooltip: {
             delete: "delete counter",

@@ -4,6 +4,23 @@ let data = {
         save: '保存',
         cancel: '取消'
     },
+    ShareDialog: {
+        title: '添加分享信息',
+        save: '保存',
+        cancel: '取消',
+        placeholder: {
+            user: '请输入用户名',
+            title: '请输入分享标题',
+            desc: '请输入分享备注'
+        },
+        label: {
+            user: '创建者',
+            title: '标题',
+            desc: '描述',
+            time: '时间',
+            operation: '操作'
+        }
+    },
     Hero: {
         tooltip: {
             delete: "删除counter",

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-export default function ShareModal({ lang, shareModalRef, data }) {
+export default function ShareModal({ lang, shareModalRef, data, text }) {
     const [shareInfo, setShareInfo] = useState({
         user: '',
         name: '',
@@ -47,43 +47,49 @@ export default function ShareModal({ lang, shareModalRef, data }) {
             <div className="modal-box">
                 {
                     shareId === 0 ? <>
-                        <h3 className="font-bold text-lg">add share info</h3>
+                        <h3 className="font-bold text-lg">{text.title}</h3>
                         <div className="py-4">
-                            <label class="input input-bordered flex items-center gap-2 mb-4">
-                                <span className="w-[100px]">creator</span>
+                            <label className="input input-bordered flex items-center gap-2 mb-4">
+                                <span className="w-[100px]">{text.label.user}</span>
                                 <input
                                     type="text"
                                     value={shareInfo.user}
                                     className="grow"
-                                    placeholder="please input share username"
+                                    placeholder={text.placeholder.user}
                                     onChange={(e) => handleXssInput(e.target.value, 'user')}
                                 />
                             </label>
-                            <label class="input input-bordered flex items-center gap-2 mb-4">
-                                <span className="w-[100px]">title</span>
+                            <label className="input input-bordered flex items-center gap-2 mb-4">
+                                <span className="w-[100px]">{text.label.title}</span>
                                 <input
                                     type="text"
                                     value={shareInfo.name}
                                     className="grow"
-                                    placeholder="please input share title"
+                                    placeholder={text.placeholder.title}
                                     onChange={(e) => handleXssInput(e.target.value, 'name')}
                                 />
                             </label>
-                            <label class="input input-bordered flex items-center gap-2">
-                                <span className="w-[100px]">description</span>
+                            <label className="input input-bordered flex items-center gap-2">
+                                <span className="w-[100px]">{text.label.desc}</span>
                                 <input
                                     type="text"
                                     value={shareInfo.desc}
                                     className="grow"
-                                    placeholder="please input share username"
+                                    placeholder={text.placeholder.desc}
                                     onChange={(e) => handleXssInput(e.target.value, 'desc')}
                                 />
                             </label>
                         </div>
                         <div className="modal-action">
                             <form method="dialog" className="flex gap-2">
-                                <button className="btn">取消</button>
-                                <button className="btn btn-active btn-primary" onClick={e => handleShareSubmit(e)}>确认</button>
+                                <button className="btn bg-gray-600">{text.cancel}</button>
+                                <button
+                                    className="btn btn-active bg-[#16a34a]"
+                                    onClick={e => handleShareSubmit(e)}
+                                    disabled={!shareInfo.name || !shareInfo.user}
+                                >
+                                    {text.save}
+                                </button>
                             </form>
                         </div>
                     </> : (
