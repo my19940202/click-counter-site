@@ -26,9 +26,9 @@ export default async function Home({ params }) {
             </div>
             <div className="grid gap-4 grid-cols-1 md:grid-cols-3 py-4">
                 {
-                    gridItems.map(item => {
+                    gridItems.map((item, index) => {
                         return (
-                            <div className='counter-card' >
+                            <div className='counter-card' key={index}>
                                 <div className="counter-title text-2xl text-green-600 p-2 m-auto w-[80%] whitespace-nowrap overflow-hidden text-ellipsis">
                                     <span data-type="edit">{item.name}</span>
                                 </div>
