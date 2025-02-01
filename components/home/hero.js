@@ -77,6 +77,9 @@ const topBarButtons = [
     }
 ].filter(ele => isMobile() ? true : ele.type !== 'vibrate');
 
+const audioMinus = new Audio('https://pomofocus.io/audios/general/button.wav');
+const audioAdd = new Audio('https://clickcounter.io/audio/click-click.mp3');
+
 export default function Hero({ params }) {
     const editModalRef = useRef(null);
     const shareModalRef = useRef(null);
@@ -134,9 +137,7 @@ export default function Hero({ params }) {
     const handleChangeValue = (id, change) => {
         // 播放点击音效 参考 https://pomofocus.io/ 的按钮点击声音
         if (activeMap.sound) {
-            const minus = new Audio('https://pomofocus.io/audios/general/button.wav');
-            const add = new Audio('https://clickcounter.io/audio/click-click.mp3');
-            change === 1 ? add.play() : minus.play();
+            change === 1 ? audioAdd.play() : audioMinus.play();
         }
 
         // 振动50毫秒
