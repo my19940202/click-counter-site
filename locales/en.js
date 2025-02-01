@@ -19,7 +19,8 @@ let data = {
             desc: 'description',
             time: 'time',
             operation: 'operation'
-        }
+        },
+        success: 'Share successful, share link: ',
     },
     Hero: {
         tooltip: {

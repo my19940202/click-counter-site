@@ -19,7 +19,8 @@ let data = {
             desc: '説明',
             time: '時間',
             operation: '操作'
-        }
+        },
+        success: '共有成功、共有リンク：'
     },
     Hero: {
         tooltip: {
