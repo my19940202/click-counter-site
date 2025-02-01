@@ -77,9 +77,6 @@ const topBarButtons = [
     }
 ].filter(ele => isMobile() ? true : ele.type !== 'vibrate');
 
-const audioMinus = new Audio('https://pomofocus.io/audios/general/button.wav');
-const audioAdd = new Audio('https://clickcounter.io/audio/click-click.mp3');
-
 export default function Hero({ params }) {
     const editModalRef = useRef(null);
     const shareModalRef = useRef(null);
@@ -95,6 +92,9 @@ export default function Hero({ params }) {
         }
         return defaultActiveMap;
     });
+    const [audioMinus, setAudioMinus] = useState(null);
+    const [audioAdd, setAudioAdd] = useState(null);
+
     // add grid items
     const [gridItems, setGridItems] = useState(() => {
         if (typeof window !== 'undefined') {
@@ -113,6 +113,11 @@ export default function Hero({ params }) {
     useEffect(() => {
         window.localStorage.setItem('gridItems', JSON.stringify(gridItems));
     }, [gridItems]);
+
+    useEffect(() => {
+        setAudioMinus(new Audio('https://pomofocus.io/audios/general/button.wav'));
+        setAudioAdd(new Audio('https://clickcounter.io/audio/click-click.mp3'));
+    }, [])
 
     const handleActiveMapClick = (type) => {
         setActiveMap({
