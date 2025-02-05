@@ -77,14 +77,8 @@ const topBarButtons = [
     }
 ].filter(ele => isMobile() ? true : ele.type !== 'vibrate');
 
-export default function Hero({ params }) {
-    const editModalRef = useRef(null);
-    const shareModalRef = useRef(null);
-    const generateId = 0;
-    const { lang = 'en' } = params;
-    const seoText = getDictionary(lang);
-
-    const [activeCounterId, setActiveCounterId] = useState(0)
+// 顶部开关的自定义hook
+function useActiveMap() {
     const [activeMap, setActiveMap] = useState(() => {
         if (typeof window !== 'undefined') {
             const storedMap = window.localStorage.getItem('activeMap');
@@ -92,9 +86,16 @@ export default function Hero({ params }) {
         }
         return defaultActiveMap;
     });
-    const [audioMinus, setAudioMinus] = useState(null);
-    const [audioAdd, setAudioAdd] = useState(null);
 
+    useEffect(() => {
+        window.localStorage.setItem('activeMap', JSON.stringify(activeMap));
+    }, [activeMap]);
+
+    return [activeMap, setActiveMap]
+}
+
+// griditem的自定义hook
+function useGridItems() {
     // add grid items
     const [gridItems, setGridItems] = useState(() => {
         if (typeof window !== 'undefined') {
@@ -104,15 +105,26 @@ export default function Hero({ params }) {
         return defaultGridItems;
     });
 
-    // update activeMap
-    useEffect(() => {
-        window.localStorage.setItem('activeMap', JSON.stringify(activeMap));
-    }, [activeMap]);
-
     // update gridItems
     useEffect(() => {
         window.localStorage.setItem('gridItems', JSON.stringify(gridItems));
     }, [gridItems]);
+
+    return [gridItems, setGridItems]
+}
+
+export default function Hero({ params }) {
+    const editModalRef = useRef(null);
+    const shareModalRef = useRef(null);
+    const generateId = 0;
+    const { lang = 'en' } = params;
+    const seoText = getDictionary(lang);
+
+    const [activeCounterId, setActiveCounterId] = useState(0)
+    const [activeMap, setActiveMap] = useActiveMap();
+    const [gridItems, setGridItems] = useGridItems();
+    const [audioMinus, setAudioMinus] = useState(null);
+    const [audioAdd, setAudioAdd] = useState(null);
 
     useEffect(() => {
         setAudioMinus(new Audio('https://pomofocus.io/audios/general/button.wav'));
