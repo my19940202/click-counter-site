@@ -125,11 +125,13 @@ export default function Hero({ params }) {
     const [gridItems, setGridItems] = useGridItems();
     const [audioMinus, setAudioMinus] = useState(null);
     const [audioAdd, setAudioAdd] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         setAudioMinus(new Audio('https://pomofocus.io/audios/general/button.wav'));
         setAudioAdd(new Audio('https://clickcounter.io/audio/click-click.mp3'));
-    }, [])
+        setLoading(false);
+    }, []);
 
     const handleActiveMapClick = (type) => {
         setActiveMap({
@@ -225,21 +227,27 @@ export default function Hero({ params }) {
                 topBarButtons={topBarButtons}
             />
 
-            <div className={`grid gap-4 grid-cols-1 md:grid-cols-3`}>
-                {gridItems.map((item) => (
-                    <CounterCard
-                        key={item.id}
-                        item={item}
-                        active={activeCounterId === item.id}
-                        handleEditItem={handleEditItem}
-                        handleChangeValue={handleChangeValue}
-                        handleDeleteItem={handleDeleteItem}
-                        handleReset={handleReset}
-                        handleDefault={setActiveCounterId}
-                        tooltipText={seoText.Hero.tooltip}
-                    />
-                ))}
-            </div>
+            {loading ? (
+                <div className="w-full text-center h-[230px] flex justify-center ">
+                    <span className="loading loading-spinner loading-md"></span>
+                </div>
+            ) : (
+                <div className={'grid gap-4 grid-cols-1 md:grid-cols-3'}>
+                    {!loading && gridItems.map((item) => (
+                        <CounterCard
+                            key={item.id}
+                            item={item}
+                            active={activeCounterId === item.id}
+                            handleEditItem={handleEditItem}
+                            handleChangeValue={handleChangeValue}
+                            handleDeleteItem={handleDeleteItem}
+                            handleReset={handleReset}
+                            handleDefault={setActiveCounterId}
+                            tooltipText={seoText.Hero.tooltip}
+                        />
+                    ))}
+                </div>
+            )}
 
             {/* Add and Share buttons */}
             <div className="w-full flex justify-center mt-4">
